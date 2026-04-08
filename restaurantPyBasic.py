@@ -1,0 +1,150 @@
+
+
+
+
+"""
+Author info:
+Konun Koushesh
+Email: koushesh@gmail.com
+
+date of Generation: 13 Nov. 2025
+Work scope: a final project of a basic python course
+Written in Python 3.13 in 3 hours (without clarification notes) and in German
+"""
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Projekttitel ______________________________________________________
+# Rechnungen in einem Restaurant ausstellen und Einnahmen pro Tag erfassen
+
+# Projektbeschreibung _______________________________________________
+# Die Idee ist, ein Programm zu schreiben, das Rechnungen für die Gäste eines Restaurants erstellt.
+# Die Rechnungen sollen pro Person und pro Tisch ausgestellt werden.
+# Außerdem sollen die täglichen Einnahmen des Restaurants nach Datum erfasst werden.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+from datetime import datetime, date
+
+# Restaurantdatenbank __________________________________________________
+# Die Speisekarte lässt sich einfach aktualisieren, indem die Angebote des Küchenchefs eingegeben werden.
+# Dazu werden die einzelnen Gerichte und ihre Preise als Dictionary-Datentyp hinzugefügt.
+# --> Wichtig: Jede Speisekarte muss einen Eintrag (key) „Null“ mit dem Preis (value) 0 enthalten.
+# Dies dient der besseren Lesbarkeit der Rechnungen und ermöglicht später die Berechnung des Tagesumsatzes des Restaurants.
+
+vorspeisen_menu = {'Null':0, 'Bruschetta': 7, 'Knoblauchbrot': 5, 'Käseplatte': 9}
+suppen_salate_menu = {'Null':0, 'Tomatensuppe': 6, 'Caesar-Salat': 9, 'Gemischter Salat': 8}
+hauptgerichte_menu = {'Null':0, 'Hamburger': 13, 'Steak': 24, 'Schnitzel': 18, 'Pasta Carbonara': 14}
+desserts_menu = {'Null':0, 'Apfelstrudel': 7, 'Kaesekuchen': 6, 'Schokoladenmousse': 8}
+getraenke_menu = {'Null':0, 'Mineralwasser': 3, 'Bier (0,5L)': 5, 'Hauswein (Glas)': 6, 'Kaffee': 3.5, 'Softdrink': 4}
+
+# In einem Dictionary-Datentyp werden der Code jedes Tisches und seine maximale Sitzplatzanzahl eingegeben:
+tische = {'A':2,'B':2,'C':2,'D':4,'E':4,'F':6,'G':10}
+
+# Als Listendatentyp werden der Name des Restaurantpersonals, die Arbeitsschicht und die jeweilige Funktion hinzugefügt:
+personal = [['Tea','Frühschicht','Koch'],
+            ['Marie','Frühschicht','Hilfskoch'],
+            ['Dena','Frühschicht', 'Kellner'],
+            ['Ptrik','Frühschicht', 'Kellner'],
+            ['Leon', 'Spätschicht', 'Koch'],
+            ['Vincent', 'Spätschicht','Hilfskoch'],
+            ['Hans', 'Spätschicht','Kellner'],
+            ['Laura', 'Spätschicht','Kellner']]
+
+# In der Klasse „Bestellungen“ sind alle erforderlichen Methoden zur Erstellung von Rechnungen,
+# entweder pro Person (rechnung_pro_person_m) oder pro Tisch (zahlung_pro_tisch_m), implementiert.
+# Zur Erfassung der täglichen Einnahmen des Restaurants wird diese Klasse von der Methode:
+# zahlungen_pro_tag_m und zahlungen_erfassung_m verwendet.
+
+class Bestellungen:
+    zahlung_pro_tisch=0
+    zahlungen_pro_tag=0
+    zahlungen_erfassung=[]
+    dateTime = datetime.now().replace(microsecond=0)
+
+    def __init__(self,vorspeisen,suppen_salate,hauptgerichte,desserts,getraenke,person,tisch,kellner):
+        self.vorspeisen = vorspeisen
+        self.suppen_salate = suppen_salate
+        self.hauptgerichte = hauptgerichte
+        self.desserts = desserts
+        self.getraenke = getraenke
+        self.person = person
+        self.tisch = tisch
+        self.kellner = kellner
+
+    def rechnung_pro_person_m(self):
+        sum_pro_person_tisch=sum([
+                vorspeisen_menu[self.vorspeisen],
+                suppen_salate_menu[self.suppen_salate],
+                hauptgerichte_menu[self.hauptgerichte],
+                desserts_menu[self.desserts],
+                getraenke_menu[self.getraenke]])
+
+        Bestellungen.zahlung_pro_tisch += sum_pro_person_tisch
+
+        print( f"\n{self.dateTime} Kellner: {self.kellner} \n"
+               f"Tisch: {self.tisch} Person: {self.person} \n"
+               f"Items:\n------------------------ " )
+        if self.vorspeisen!= 'Null':
+               print(f"{vorspeisen_menu[self.vorspeisen]} {self.vorspeisen}")
+        if self.suppen_salate != 'Null':
+               print(f"{suppen_salate_menu[self.suppen_salate]} {self.suppen_salate}")
+        if self.hauptgerichte != 'Null':
+               print( f"{hauptgerichte_menu[self.hauptgerichte]} {self.hauptgerichte}")
+        if self.desserts != 'Null':
+               print(f"{desserts_menu[self.desserts]} {self.desserts}")
+        if self.getraenke != 'Null':
+               print(f"{getraenke_menu[self.getraenke]} {self.getraenke}")
+        print(f"------------------------\n"
+              f"{sum_pro_person_tisch} Zahlung pro Person")
+
+    @classmethod
+    def zahlung_pro_tisch_m(cls):
+        print(f"========================\n{cls.zahlung_pro_tisch} Zahlung pro Tisch")
+        Bestellungen.zahlungen_pro_tag+=Bestellungen.zahlung_pro_tisch
+        Bestellungen.zahlung_pro_tisch = 0
+
+    @classmethod
+    def zahlungen_pro_tag_m(cls):
+        Bestellungen.zahlungen_erfassung.append([Bestellungen.zahlungen_pro_tag, str(date.today())])
+        print(f"\n\n========================\n{cls.zahlungen_pro_tag} Zahlungen pro Tag")
+
+    @classmethod
+    def zahlungen_erfassung_m(cls):
+        print(f"\n\n============ Zahlungenerfassung ============\n{cls.zahlungen_erfassung}")
+
+# Dieser Teil könnte in Zukunft weiterentwickelt werden! _____________________________
+class Taeglich_reset():
+    pass
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Testfälle _______________________________________________________
+# Der Code wird mit denselben bestellten Items für 3 Personen getestet.
+# Er muss Rechnungen pro Person und Tisch, die Summe der Zahlungen pro Tag sowie die Einnahmen pro Tag generieren.
+
+o1 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 1, 'D', 'Hans')
+o2 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 2, 'D', 'Hans')
+o3 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 3, 'D', 'Hans')
+
+
+o1.rechnung_pro_person_m()
+o2.rechnung_pro_person_m()
+o3.rechnung_pro_person_m()
+o3.zahlung_pro_tisch_m()
+
+o1.rechnung_pro_person_m()
+o2.rechnung_pro_person_m()
+o3.rechnung_pro_person_m()
+o3.zahlung_pro_tisch_m()
+
+o1.rechnung_pro_person_m()
+o2.rechnung_pro_person_m()
+o3.rechnung_pro_person_m()
+o3.zahlung_pro_tisch_m()
+
+o = Bestellungen('Null', 'Null', 'Null', 'Null', 'Null', 0, '0', '0')
+o.zahlungen_pro_tag_m()
+o.zahlungen_erfassung_m()
