@@ -1,18 +1,32 @@
 
-#__________________________________________________ Projekttitel ______________________________________________________
-# Rechnungen in einem Restaurant ausstellen und Einnahmen pro Tag erfassen
-# von Konun Koushesh - 13 Nov. 2025
-# Kursleiter: Jerish George
 
-#_______________________________________________ Projektbeschreibung __________________________________________________
+
+
+
+Author info: 
+Konun Koushesh
+Email: koushesh@gmail.com
+
+date of Generation: 13 Nov. 2025
+Work scope: a final project of a basic python course 
+Written in Python 3.13 in 3 hours (without clarification notes) and in German
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Projekttitel ______________________________________________________
+# Rechnungen in einem Restaurant ausstellen und Einnahmen pro Tag erfassen
+
+# Projektbeschreibung _______________________________________________
 # Die Idee ist, ein Programm zu schreiben, das Rechnungen für die Gäste eines Restaurants erstellt.
 # Die Rechnungen sollen pro Person und pro Tisch ausgestellt werden.
 # Außerdem sollen die täglichen Einnahmen des Restaurants nach Datum erfasst werden.
-#______________________________________________________________________________________________________________________
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 from datetime import datetime, date
 
-#_______________________________________________ Restaurantdatenbank __________________________________________________
+# Restaurantdatenbank __________________________________________________
 # Die Speisekarte lässt sich einfach aktualisieren, indem die Angebote des Küchenchefs eingegeben werden.
 # Dazu werden die einzelnen Gerichte und ihre Preise als Dictionary-Datentyp hinzugefügt.
 # --> Wichtig: Jede Speisekarte muss einen Eintrag (key) „Null“ mit dem Preis (value) 0 enthalten.
@@ -99,11 +113,14 @@ class Bestellungen:
     def zahlungen_erfassung_m(cls):
         print(f"\n\n============ Zahlungenerfassung ============\n{cls.zahlungen_erfassung}")
 
-# ________________________________ Dieser Teil könnte in Zukunft weiterentwickelt werden! _____________________________
+# Dieser Teil könnte in Zukunft weiterentwickelt werden! _____________________________
 class Taeglich_reset():
     pass
 
-# ___________________________________________________ Testfälle _______________________________________________________
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Testfälle _______________________________________________________
 # Der Code wird mit denselben bestellten Items für 3 Personen getestet.
 # Er muss Rechnungen pro Person und Tisch, die Summe der Zahlungen pro Tag sowie die Einnahmen pro Tag generieren.
 
