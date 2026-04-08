@@ -2,7 +2,7 @@
 
 
 
-
+"""
 Author info: 
 Konun Koushesh
 Email: koushesh@gmail.com
@@ -10,6 +10,7 @@ Email: koushesh@gmail.com
 date of Generation: 13 Nov. 2025
 Work scope: a final project of a basic python course 
 Written in Python 3.13 in 3 hours (without clarification notes) and in German
+"""
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
