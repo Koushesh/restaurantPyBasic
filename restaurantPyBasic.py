@@ -1,9 +1,5 @@
-
-
-
-
-
 from datetime import datetime, date
+
 """
 Restaurantdatenbank 
 Die Speisekarte lässt sich einfach aktualisieren, indem die Angebote des Küchenchefs eingegeben werden.
@@ -11,6 +7,7 @@ Dazu werden die einzelnen Gerichte und ihre Preise als Dictionary-Datentyp hinzu
 --> Wichtig: Jede Speisekarte muss einen Eintrag (key) „Null“ mit dem Preis (value) 0 enthalten.
 Dies dient der besseren Lesbarkeit der Rechnungen und ermöglicht später die Berechnung des Tagesumsatzes des Restaurants.
 """
+
 vorspeisen_menu = {'Null':0, 'Bruschetta': 7, 'Knoblauchbrot': 5, 'Käseplatte': 9}
 suppen_salate_menu = {'Null':0, 'Tomatensuppe': 6, 'Caesar-Salat': 9, 'Gemischter Salat': 8}
 hauptgerichte_menu = {'Null':0, 'Hamburger': 13, 'Steak': 24, 'Schnitzel': 18, 'Pasta Carbonara': 14}
@@ -30,15 +27,15 @@ personal = [['Tea','Frühschicht','Koch'],
             ['Hans', 'Spätschicht','Kellner'],
             ['Laura', 'Spätschicht','Kellner']]
 
-
-
 class Bestellungen:
+
     """
     In der Klasse „Bestellungen“ sind alle erforderlichen Methoden zur Erstellung von Rechnungen,
 entweder pro Person (rechnung_pro_person_m) oder pro Tisch (zahlung_pro_tisch_m), implementiert.
 Zur Erfassung der täglichen Einnahmen des Restaurants wird diese Methode:
 zahlungen_pro_tag_m und zahlungen_erfassung_m von der Klasse verwendet.
     """
+
     zahlung_pro_tisch=0
     zahlungen_pro_tag=0
     zahlungen_erfassung=[]
@@ -99,19 +96,13 @@ zahlungen_pro_tag_m und zahlungen_erfassung_m von der Klasse verwendet.
 class TaeglichReset:
     pass
 
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-"""
-Testfälle
-Der Code wird mit denselben bestellten Items für 3 Personen getestet.
-Er muss Rechnungen pro Person und Tisch, die Summe der Zahlungen pro Tag sowie die Einnahmen pro Tag generieren.
-"""
+""" Testfälle +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Der Code wird mit denselben bestellten Items für 3 Personen getestet.
+#Er muss Rechnungen pro Person und Tisch, die Summe der Zahlungen pro Tag sowie die Einnahmen pro Tag generieren.
 
 o1 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 1, 'D', 'Hans')
 o2 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 2, 'D', 'Hans')
 o3 = Bestellungen('Bruschetta', 'Null', 'Schnitzel', 'Apfelstrudel', 'Mineralwasser', 3, 'D', 'Hans')
-
 
 o1.rechnung_pro_person_m()
 o2.rechnung_pro_person_m()
@@ -131,3 +122,5 @@ o3.zahlung_pro_tisch_m()
 o = Bestellungen('Null', 'Null', 'Null', 'Null', 'Null', 0, '0', '0')
 o.zahlungen_pro_tag_m()
 o.zahlungen_erfassung_m()
+
+"""
